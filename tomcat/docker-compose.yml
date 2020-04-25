@@ -1,0 +1,26 @@
+version: "3.7"
+networks:
+  webnet:
+services:
+  web:
+    image: tomcat:8.5
+    ports:
+      - "8080:8080"
+    volumes:
+      - "$PWD/webapps:/usr/local/tomcat/webapps" # 把当前目录webapps挂载到容器
+    networks:
+      webnet:
+  db:
+    build: .
+    image: longxr/mysql-test:tomcat
+    ports:
+      - "3306:3306" ## 暴露端口
+    command:
+      [
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+      ]
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+    networks:
+      webnet:
