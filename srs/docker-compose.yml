@@ -1,0 +1,34 @@
+version: "3.7"
+# networks:
+#   webnet:
+services:
+  # web:
+  #   image: tomcat:8.5
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - "$PWD/webapps:/usr/local/tomcat/webapps" # 把当前目录webapps挂载到容器
+  #   networks:
+  #     webnet:
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    command: ["--character-set-server=utf8mb4", "--lower-case-table-names=1"]
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - /home/longxr/docker-data/mysql/data:/var/lib/mysql
+      - /home/longxr/docker-data/mysql/logs:/var/log/mysql
+      # - ./conf/my.cnf:/etc/mysql/conf.d
+      # - ./init:/docker-entrypoint-initdb.d/
+
+  srs3:
+    image: ossrs/srs:3
+    ports:
+      - 1935:1935
+    volumes:
+      - /home/longxr/docker-data/srs/conf/record.conf:/usr/local/srs/conf/srs.conf
+      - /home/longxr/docker-data/srs/logs/srs.log:/usr/local/srs/objs/srs.log
+      # - /home/longxr/docker-data/srs/record:/usr/local/srs/record
+      - /home/longxr/ftprootfolder/videofile:/usr/local/srs/record
