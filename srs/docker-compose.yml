@@ -27,6 +27,12 @@ services:
     image: ossrs/srs:3
     ports:
       - 1935:1935
+    command:
+      - /bin/bash
+      - -c
+      - |
+        umask 002 
+        ./objs/srs -c conf/srs.conf
     volumes:
       - /home/longxr/docker-data/srs/conf/record.conf:/usr/local/srs/conf/srs.conf
       - /home/longxr/docker-data/srs/logs/srs.log:/usr/local/srs/objs/srs.log
