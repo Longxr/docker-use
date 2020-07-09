@@ -16,7 +16,8 @@ services:
       - 3306:3306
     command: ["--character-set-server=utf8mb4", "--lower-case-table-names=1"]
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
+      - MYSQL_ROOT_PASSWORD=123456
+      - TZ=Asia/Shanghai
     volumes:
       - /home/longxr/docker-data/mysql/data:/var/lib/mysql
       - /home/longxr/docker-data/mysql/logs:/var/log/mysql
@@ -27,6 +28,15 @@ services:
     image: ossrs/srs:3
     ports:
       - 1935:1935
+      - 1985:1985
+    # command:
+    #   - /bin/bash
+    #   - -c
+    #   - |
+    #     umask 0000
+    #     ./objs/srs -c conf/srs.conf
+    environment:
+      - TZ=Asia/Shanghai
     volumes:
       - /home/longxr/docker-data/srs/conf/record.conf:/usr/local/srs/conf/srs.conf
       - /home/longxr/docker-data/srs/logs/srs.log:/usr/local/srs/objs/srs.log
