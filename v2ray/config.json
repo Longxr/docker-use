@@ -1,0 +1,23 @@
+{
+  "inbounds": [
+    {
+      "port": 12340,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "用户ID",
+            "level": 1,
+            "alterId": 64
+          }
+        ]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    }
+  ]
+}
